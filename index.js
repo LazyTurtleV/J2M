@@ -73,7 +73,7 @@ class J2M {
                 // Un-named Links
                 .replace(/\[([^|]+?)\]/g, '<$1>')
                 // Images
-                .replace(/!(.+)!/g, '![]($1)')
+                .replace(/!(.+?)!/g, '![]($1)')
                 // Named Links
                 .replace(/\[(.+?)\|(.+?)\]/g, '[$1]($2)')
                 // Single Paragraph Blockquote
