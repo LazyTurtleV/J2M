@@ -1,3 +1,7 @@
+# Fork
+
+The fork is aimed at fixing the image issue - multiple images get glued because of greedy image link regex
+
 # jira2md
 
 ## JIRA to MarkDown text format converter
