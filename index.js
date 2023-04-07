@@ -2,6 +2,10 @@ const { marked } = require('marked');
 
 marked.setOptions({ breaks: true, smartyPants: true });
 
+function escapeString(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 class J2M {
     /**
      * Converts a Markdown string into HTML (just a wrapper to Marked's parse method).
@@ -34,7 +38,7 @@ class J2M {
      */
     static to_markdown(str) {
         return (
-            str
+            str 
                 // Un-Ordered Lists
                 .replace(/^[ \t]*(\*+)\s+/gm, (match, stars) => {
                     return `${Array(stars.length).join('  ')}* `;
@@ -50,7 +54,10 @@ class J2M {
                 // Bold
                 .replace(/\*(\S.*)\*/g, '**$1**')
                 // Italic
-                .replace(/_(\S.*)_/g, '*$1*')
+                .replace(/_(\S.*)_/g, (match, token, _, wholeStr) => {
+                    //don't match tokens inside brackets - it fixes links with '_' transformation
+                    return wholeStr.match(`\\[.*?${escapeString(match)}.*?\\]|\\[.*?\\]\\(.*?${escapeString(match)}.*?\\)`) ? match : `*${token}*`
+                })
                 // Monospaced text
                 .replace(/\{\{([^}]+)\}\}/g, '`$1`')
                 // Citations (buggy)
