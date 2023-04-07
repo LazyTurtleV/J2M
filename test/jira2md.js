@@ -137,8 +137,12 @@ describe('to_markdown', () => {
         const markdown = j2m.to_markdown('A text with{color:blue} blue \n lines {color} is not necessary.');
         markdown.should.eql('A text with blue \n lines  is not necessary.');
     });
-    // it('should not recognize inserts across multiple table cells', () => {
-    //      const markdown = j2m.to_markdown('||Heading 1||Heading 2||\n|Col+A1|Col+A2|');
-    //      markdown.should.eql('\n|Heading 1|Heading 2|\n| --- | --- |\n|Col+A1|Col+A2|');
-    //  });
+    it('should not convert special symbols in the image or any other kind of arbitrary characters sequence', () => {
+        const jira = j2m.to_jira('[Quadro](http://a_joke_.com)');
+        jira.should.eql('[Quadro|http://a_joke_.com]');
+    })
+    it('should not convert special symbols in the image or any other kind of arbitrary characters sequence', () => {
+        const markdown = j2m.to_markdown('[Quadro|http://a_joke_.com]');
+        markdown.should.eql('[Quadro](http://a_joke_.com)');
+    })
 });
