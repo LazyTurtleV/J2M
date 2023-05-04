@@ -52,11 +52,7 @@ class J2M {
                     return Array(parseInt(level, 10) + 1).join('#') + content;
                 })
                 // Bold
-                .replace(/\*(\S.*)\*/g, (match, token, _, wholeStr) => {
-                    return wholeStr.match(`\B${escapeString(match)}\B`)
-                        ? match
-                        : `**${token}**`
-                })
+                .replace(/\*(\S.*)\*/g, '**$1**')
                 // Italic
                 .replace(/_(\S.*?)_/g, (match, token, _, wholeStr) => {
                     //don't match tokens inside brackets - it fixes links with '_' transformation
