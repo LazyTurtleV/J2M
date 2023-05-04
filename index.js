@@ -56,7 +56,9 @@ class J2M {
                 // Italic
                 .replace(/_(\S.*?)_/g, (match, token, _, wholeStr) => {
                     //don't match tokens inside brackets - it fixes links with '_' transformation
-                    return wholeStr.match(`\\[.*?${escapeString(match)}.*?\\]|\\[.*?\\]\\(.*?${escapeString(match)}.*?\\)`) ? match : `*${token}*`
+                    return wholeStr.match(`\\[.*?${escapeString(match)}.*?\\]|\\[.*?\\]\\(.*?${escapeString(match)}.*?\\)|!${escapeString(match)}.+?!`) 
+                        ? match 
+                        : `*${token}*`
                 })
                 // Monospaced text
                 .replace(/\{\{([^}]+)\}\}/g, '`$1`')
