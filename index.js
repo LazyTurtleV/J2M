@@ -74,7 +74,7 @@ class J2M {
                 // Superscript
                 .replace(/\^([^^]*?)\^/g, '<sup>$1</sup>')
                 // Subscript
-                .replace(/~([^~]*?)~/g, '<sub>$1</sub>')
+                .replace(/~([^~\[\]]*?)~/g, '<sub>$1</sub>')
                 // Strikethrough
                 .replace(/(\s+)-(\S+.*?\S)-(\s+)/g, '$1~~$2~~$3')
                 // Code Block
